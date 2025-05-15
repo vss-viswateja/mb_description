@@ -111,3 +111,52 @@ Before running this package, ensure you have the following software installed:
     Replace `<your_ros2_workspace>` with the actual path to your ROS 2 workspace.
 
 
+    ## Usage
+
+-  **Launch Webots with the ROSbot in simulation:**
+
+    Open a new terminal and run the following command to launch the ROSbot simulation in Webots:
+
+    ```bash
+    ros2 launch mb_description rviz.launch.py
+    ```
+
+    This command will start the Webots simulator with the ROSbot in your defined world.
+
+-  **Run the Visual SLAM algorithm node:**
+
+    Open a new terminal and run the Visual SLAM node:
+
+    ```bash
+    ros2 launch rtabmap_launch rtabmap.launch.py \  rgb_topic:=/rosbot/camera_rgb/image_color \   depth_topic:=/rosbot/camera_depth/image \   camera_info_topic:=/rosbot/camera_rgb/camera_info \  frame_id:=base_link \   map_frame_id:=map \  approx_sync:=false \  args:="-d --delete_db_on_start"  rviz:=true 
+    ```
+
+
+-  **(Optional) Visualize the robot's path and sensor data:**
+
+    You can use `rqt` or `rviz2` to visualize the robot's odometry, camera readings, and the generated map.
+
+    To start `rviz`, you can run:
+
+    ```bash
+    rviz2
+    ```
+
+    Then add the desired plugins, such as "image" for camera data or "map" for a generated map.
+
+    Then, configure the plugins to visualize the desired topics.
+
+
+   ## Contributing and Bug Reporting
+
+If you encounter any bugs, issues, or have suggestions for improvements, please feel free to contribute! You can:
+
+* **Submit a Pull Request:** If you have code changes, bug fixes, or new features, please submit a pull request.
+* **Report an Issue:** If you find a bug or have a suggestion, please open an issue on the GitHub repository. Provide as much detail as possible, including steps to reproduce the issue and any relevant error messages. 
+
+   
+
+
+
+
+
