@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<robot name="rosbot">
+    <webots>
+        <!--<plugin type="mb_description.diff_driver.DiffDriver" /> --> 
+           <!-- type="package_name.file_name.class_name" -->
+        <plugin type="webots_ros2_control::Ros2Control" />
+        <!-- In the urdf we add the above ros2 controller to get the joint state publisher. since the joint state broadcaster is a ros2 controller plugin
+        we will add this to create a connection between ros2control and webots. FOr the JOint state broadcaster to work we need to also mention which joints we are considering -->
+        <plugin type="webots_ros2_driver::Ros2IMU">
+            <enabled>true</enabled>
+            <topicName>/imu_broadcaster/imu</topicName>
+            <alwaysOn>true</alwaysOn>
+            <frameName>imu_link</frameName>
+            <gyroName>imu gyro</gyroName>
+            <accelerometerName>imu accelerometer</accelerometerName>
+            <inertialUnitName>imu inertial_unit</inertialUnitName>
+        </plugin>
+
+    </webots>
+    <!-- If the below component is not there then there will be an error saying "No ros2 control tag". This hardware section will complete the connection between 
+    ros2_control package and webots -->
+
+    <ros2_control name="wheels" type="system">
+        <hardware>
+            <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+        </hardware>
+
+        <!--This below section defines the list of joints and their types so that these could be later used in joint state boradcaster -->
+
+        <joint name="fl_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="fr_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="rl_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <joint name="rr_wheel_joint">
+            <command_interface name="velocity" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+    </ros2_control>
+
+</robot>

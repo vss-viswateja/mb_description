@@ -1,0 +1,48 @@
+amcl:
+  ros__parameters:
+    # General Parameters
+    use_sim_time: True                # Set to True if using simulation time (e.g., Webots)
+    alpha1: 0.2                       # Odometry rotational noise (rotation ~ rotation)
+    alpha2: 0.2                       # Odometry translational noise (translation ~ translation)
+    alpha3: 0.2                       # Odometry translational noise (rotation ~ translation)
+    alpha4: 0.2                       # Odometry rotational noise (translation ~ rotation)
+    alpha5: 0.2                       # Additive rotational noise for angular motion
+
+    # Laser Model Parameters
+    laser_model_type: "likelihood_field"  # "beam", "likelihood_field", or "likelihood_field_prob"
+    laser_likelihood_max_dist: 2.0    # Max distance to consider obstacles in the map
+    max_beams: 60                     # Number of laser beams to use for localization
+    beam_skip_distance: 0.5           # Skip beams if they jump more than this distance
+    beam_skip_error_threshold: 0.9    # Threshold for beam skip "goodness"
+    beam_skip_threshold: 0.3          # Threshold for valid beams
+
+    # Odometry Model Parameters
+    odom_model_type: "diff"           # "diff" (differential drive) or "omni" (omnidirectional)
+    odom_frame_id: "odom"             # Frame ID of the odometry source
+    base_frame_id: "base_link"        # Robot's base frame
+    global_frame_id: "map"            # Global fixed frame (your pre-built map)
+
+    # Particle Filter Parameters
+    min_particles: 100                # Minimum number of particles
+    max_particles: 5000               # Maximum number of particles
+    kld_err: 0.01                     # Kullback-Leibler divergence error bound
+    kld_z: 0.99                       # Upper standard normal quantile for KLD
+    update_min_d: 0.2                 # Translational movement to trigger filter update (meters)
+    update_min_a: 0.5                 # Rotational movement to trigger filter update (radians)
+    resample_interval: 2              # Number of filter updates before resampling
+    transform_tolerance: 1.0          # Tolerance for TF lookups (seconds)
+    recovery_alpha_slow: 0.001        # Slow average weight filtering factor
+    recovery_alpha_fast: 0.1          # Fast average weight filtering factor
+
+    # Initial Pose
+    set_initial_pose: true            # Allow setting initial pose via RViz or code
+    initial_pose:
+      x: 0.0                          # Initial X position (adjust based on your map)
+      y: 0.0                          # Initial Y position
+      z: 0.0
+      yaw: 0.0                        # Initial yaw (radians)
+    initial_pose_covariance: [0.25, 0.0, 0.0, 0.0, 0.25, 0.0, 0.0, 0.0, 0.0685]  # Covariance matrix
+
+    # Sensor Topics
+    scan_topic: "scan"                # Laser scan topic (adjust if using RGB-D)
+    use_scan_topic: true              # Enable laser scan input
